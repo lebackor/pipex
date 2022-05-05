@@ -17,10 +17,7 @@ char *parsing(t_data p)
             p.j++;
         }
         if (str[0] == 'P' && str[1] == 'A' && str[2] == 'T')
-        {
-            printf("sheesh\n");
             break;
-        }
         free(str);
         p.i++;
     }
@@ -37,7 +34,9 @@ char **parse_split(t_data p)
     p.paths = ft_split(&str[i], ':');
     free(str);
     i = -1;
-    while(p.paths[++i])
-        printf("%s\n", p.paths[i]);
+    p.cmdargs = ft_split(p.av[2], ' ');
+   // while (p.cmdargs[++i])
+   //     printf("%s\n", p.cmdargs[i]);
+
     return (p.paths);
 }

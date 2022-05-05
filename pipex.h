@@ -16,6 +16,7 @@ typedef struct s_data{
     char **env;
     char **str;
     char **paths;
+    char **cmdargs;
     int f1;
     int f2;
     int cmd1;
@@ -36,4 +37,5 @@ char *parsing(t_data p);
 int	ft_strcmp(char *s1, char *s2);
 char	**ft_split(char const *s, char c);
 char **parse_split(t_data p);
+char	*ft_strjoin(char const *s1, char const *s2);
 #endif
