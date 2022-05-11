@@ -1,5 +1,7 @@
 #include "pipex.h"
-int ft_exit(t_data p)
+void ft_exit(t_data *p)
 {
+    (void) p;
+
     exit(1);
 }

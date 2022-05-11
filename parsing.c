@@ -10,6 +10,8 @@ char *parsing(t_data *p)
         p->k = 0;
         p->j = 0;
         str = malloc(sizeof(char) * ft_strlen(p->env[p->i]));
+        if (!str)
+            ft_exit(p);
         while (p->env[p->i][p->j])
         {
             str[p->k] = p->env[p->i][p->j];
@@ -27,7 +29,9 @@ char *parsing(t_data *p)
 char *parse_split(t_data *p)
 {
     char *str;
-    int i = 0;
+    int i;
+
+    i = 0;
     p->j = 1;
     str = parsing(p);
     while (str[i] != '/')
@@ -35,8 +39,6 @@ char *parse_split(t_data *p)
     p->paths = ft_split(&str[i], ':');
     free(str);
     i = -1;
-   // while (p->paths[++i])
-     //   printf("%s\n", p->paths[i]);
     p->avsplit = ft_split(p->av[2], ' ');
     while (p->paths[++i] && p->j != 0)
     {
@@ -48,7 +50,6 @@ char *parse_split(t_data *p)
         free(p->cmdargs);
     }
     free(p->avsplit);
-    //printf(" acces -> %s %d\n", p->cmdargs, p->j);
     return (NULL);
 }
 
@@ -69,6 +70,7 @@ char    *parse_child(t_data *p)
             return p->cmdargs;
         free(p->cmdargs);
     }
-    printf(" acces -> %s %d\n", p->cmdargs, p->j);
+    if (p->j < 0)
+        perror("");// not workingp
     return (NULL);
 }

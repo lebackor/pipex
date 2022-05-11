@@ -10,7 +10,7 @@
 # include <stdarg.h>
 #include <sys/wait.h>
 #include <stdio.h>
-
+#include <errno.h>
 typedef struct s_data{
     char **av;
     char **env;
@@ -23,6 +23,7 @@ typedef struct s_data{
     int cmd1;
     int cmd2;
     int end[2];
+    int stock[2];
     int status;
     int i;
     int j;
@@ -30,7 +31,17 @@ typedef struct s_data{
     pid_t parent;
 
 }   t_data;
-
+int	ft_printf(const char *str, ...);
+long long	ft_count_nb(long long nb);
+int	ft_putnbr_u(unsigned int nb);
+int	ft_check_pourcent(char c, va_list args);
+int	ft_put_hexa_min(unsigned int nb);
+int	ft_put_hexa_maj(unsigned int nb);
+int	ft_print_hexa(unsigned long long nb, int a, int *count);
+int	ft_pointer(unsigned long long nb, int *count);
+int	ft_putstr(char *str);
+int	ft_putnbr(int nb);
+int	ft_putchar(char c);
 size_t	ft_strlen(const char *str);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 int	ft_strcmp(char *s1, char *s2);
@@ -39,6 +50,6 @@ int	ft_strcmp(char *s1, char *s2);
 char	**ft_split(char const *s, char c);
 char *parse_split(t_data *p);
 char	*ft_strjoin(char const *s1, char const *s2);
-int ft_exit(t_data p);
+void ft_exit(t_data *p);
 char    *parse_child(t_data *p);
 #endif
