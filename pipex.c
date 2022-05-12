@@ -30,8 +30,8 @@ void second_child(t_data p)
 
 void pipex(t_data p)
 {
-    int i;
-    i = -1;
+    //int i;
+   // i = -1;
     pipe(p.end);
     p.str = parse_split(&p);
     if (!p.str)
@@ -48,8 +48,10 @@ void pipex(t_data p)
     p.stock[1] = p.parent;
     if (p.parent == 0)
         second_child(p);
-    while (++i < 2)
-        waitpid(p.stock[i], &p.status, 0);
+    ft_exit(&p);
+   // waitpid(p.stock[1], &p.status, 0);
+  //  while (++i < 1)
+    //    waitpid(p.stock[i], &p.status, 0);
 }
 int main(int ac, char **av, char **envp)
 {
