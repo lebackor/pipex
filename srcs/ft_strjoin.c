@@ -27,5 +27,6 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		i++;
 	}
     str[a] = '\0';
+	//
 	return (str);
 }

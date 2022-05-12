@@ -14,10 +14,14 @@
 typedef struct s_data{
     char **av;
     char **env;
-    char *str;
-    char **paths;
-    char *cmdargs;
-    char **avsplit;
+    char *str; //a free execeve
+    char *strchild;
+    char **paths; // a free
+    char **pathschild;
+    char *cmdargs; // free
+    char *cmdargschild;
+    char **avsplit; // exceve
+    char **avsplitchild;
     int f1;
     int f2;
     int cmd1;
@@ -48,8 +52,10 @@ int	ft_strcmp(char *s1, char *s2);
 char *parsing(t_data *p);
 int	ft_strcmp(char *s1, char *s2);
 char	**ft_split(char const *s, char c);
+char	**ft_free_table(char **str);
 char *parse_split(t_data *p);
 char	*ft_strjoin(char const *s1, char const *s2);
 void ft_exit(t_data *p);
 char    *parse_child(t_data *p);
+void ft_exit_fail(t_data *p);
 #endif

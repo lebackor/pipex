@@ -3,39 +3,43 @@
 
 void    child_process(t_data p)
 {
-
+    p.str = parse_split(&p);
     dup2(p.f1, STDIN_FILENO);
     dup2(p.end[1], STDOUT_FILENO);
-    execve(p.str, p.avsplit, p.env);
-   // perror("Error");
     close(p.end[0]);
     close(p.f1);
-    exit(1);
- //   exit(EXIT_FAILURE);
+    free(p.pathschild);
+    free(p.cmdargschild);
+    execve(p.str, p.avsplit, p.env);
+    perror("Error");
+    exit(EXIT_FAILURE);
 }
 
 void second_child(t_data p)
-{
-    waitpid(p.stock[0], &p.status, 0);
-    p.str = parse_child(&p);
+{  
+    p.strchild = parse_child(&p);
     dup2(p.end[0], STDIN_FILENO);
     dup2(p.f2, STDOUT_FILENO);
-    execve(p.str, p.avsplit, p.env);
-   // perror("Error");
     close(p.end[1]);
     close(p.f2);
-    exit(1);
-   // exit(EXIT_FAILURE);
+
+    free(p.paths);
+    free(p.cmdargs);
+    execve(p.strchild, p.avsplitchild, p.env);
+    perror("Error");
+   exit(EXIT_FAILURE);
 }
 
 void pipex(t_data p)
 {
-    //int i;
-   // i = -1;
+    int i;
+   
+    i = -1;
     pipe(p.end);
-    p.str = parse_split(&p);
-    if (!p.str)
-        ft_exit(&p);
+  //  p.str = parse_split(&p);
+   // p.strchild = parse_child(&p);
+  //  if (!p.str || !p.strchild)
+    //    return (ft_exit_fail(&p));
     p.parent = fork();
     if (p.parent < 0)
         return ;
@@ -48,10 +52,9 @@ void pipex(t_data p)
     p.stock[1] = p.parent;
     if (p.parent == 0)
         second_child(p);
-    ft_exit(&p);
-   // waitpid(p.stock[1], &p.status, 0);
-  //  while (++i < 1)
-    //    waitpid(p.stock[i], &p.status, 0);
+  while (++i < 1)
+        waitpid(p.stock[i], &p.status, 0);
+    //ft_exit(&p);
 }
 int main(int ac, char **av, char **envp)
 {
@@ -59,6 +62,7 @@ int main(int ac, char **av, char **envp)
 
     if (ac != 5)
         return (1);
+    p = (t_data){0};
     p.av = av;
     p.env = envp;
     p.i = -1;
