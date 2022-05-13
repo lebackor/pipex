@@ -16,7 +16,7 @@ OBJS = ${SRCS:.c=.o}
 
 CC	=	gcc
 
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra -fsanitize=address -g3
 
 NAME = pipex
 

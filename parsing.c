@@ -9,7 +9,7 @@ char *parsing(t_data *p)
     {
         p->k = 0;
         p->j = 0;
-        str = malloc(sizeof(char) * ft_strlen(p->env[p->i]));
+        str = malloc(sizeof(char) * ft_strlen(p->env[p->i]) + 1);
         if (!str)
             ft_exit_fail(p);
         while (p->env[p->i][p->j])
@@ -18,6 +18,7 @@ char *parsing(t_data *p)
             p->k++;
             p->j++;
         }
+       // str[++p->k] = '\0';
         if (str[0] == 'P' && str[1] == 'A' && str[2] == 'T')
             break;
         free(str);
@@ -37,7 +38,8 @@ char *parse_split(t_data *p)
     while (str[i] != '/')
         i++;
     p->paths = ft_split(&str[i], ':');
-    //free(str);
+    if (str)
+        free(str);
     i = -1;
     p->avsplit = ft_split(p->av[2], ' ');
     while (p->paths[++i] && p->j != 0)
@@ -63,7 +65,8 @@ char    *parse_child(t_data *p)
     while (str[i] != '/')
         i++;
     p->pathschild = ft_split(&str[i], ':');
-    //free(str);
+    if (str)
+        free(str);
     i = -1;
     p->avsplitchild = ft_split(p->av[3], ' ');
     while (p->pathschild[++i] && p->j != 0)

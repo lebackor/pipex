@@ -13,6 +13,8 @@ int	count_words(char const *s, char c)
 
 	i = 0;
 	count = 0;
+	if (!s)
+		return (0);
 	while (s[i])
 	{
 		if (((!is_not_sep(s[i - 1], c) || i == 0)
