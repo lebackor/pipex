@@ -36,5 +36,6 @@ void ft_exit_fail(t_data *p)
         ft_free_table(p->avsplitchild);    
     if (p->paths)
         ft_free_table(p->paths);
-    exit(EXIT_FAILURE);
+    exit(0);
+    //exit(EXIT_FAILURE);
 }

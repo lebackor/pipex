@@ -18,10 +18,11 @@ char *parsing(t_data *p)
             p->k++;
             p->j++;
         }
-       // str[++p->k] = '\0';
+        str[p->k] = '\0';
         if (str[0] == 'P' && str[1] == 'A' && str[2] == 'T')
             break;
         free(str);
+        str = NULL;
         p->i++;
     }
     return (str);
@@ -30,12 +31,13 @@ char *parsing(t_data *p)
 char *parse_split(t_data *p)
 {
     char *str;
+    char *raciste;
     int i;
 
     i = 0;
     p->j = 1;
     str = parsing(p);
-    while (str[i] != '/')
+    while (str[i] != '/' && str[i])
         i++;
     p->paths = ft_split(&str[i], ':');
     if (str)
@@ -44,20 +46,25 @@ char *parse_split(t_data *p)
     p->avsplit = ft_split(p->av[2], ' ');
     while (p->paths[++i] && p->j != 0)
     {
-        p->cmdargs = ft_strjoin(p->paths[i], "/");
-        p->cmdargs = ft_strjoin(p->cmdargs, p->avsplit[0]);
+        raciste = ft_strjoin(p->paths[i], "/");
+        p->cmdargs = ft_strjoin(raciste, p->avsplit[0]);
+        free(raciste);
         p->j = access(p->cmdargs, X_OK);
         if (p->j == 0)
             return p->cmdargs;
         free(p->cmdargs);
+        p->cmdargs = NULL;
     }
-    free(p->avsplit);
+    // ft_putstr_fd(p->av[2], STDOUT_FILENO);
+    // ft_putstr_fd(": command not found\n", STDOUT_FILENO);
+    ft_free_table(p->avsplit);
     return (NULL);
 }
 char    *parse_child(t_data *p)
 {
     char *str;
     int i;
+    char *raciste;
 
     i = 0;
     p->j = 1;
@@ -71,14 +78,19 @@ char    *parse_child(t_data *p)
     p->avsplitchild = ft_split(p->av[3], ' ');
     while (p->pathschild[++i] && p->j != 0)
     {
-        p->cmdargschild = ft_strjoin(p->pathschild[i], "/");
-        p->cmdargschild = ft_strjoin(p->cmdargschild, p->avsplitchild[0]);
+            raciste = ft_strjoin(p->pathschild[i], "/");
+            p->cmdargschild = ft_strjoin(raciste, p->avsplitchild[0]);
+            free(raciste);
         p->j = access(p->cmdargschild, X_OK);
         if (p->j == 0)
             return p->cmdargschild;
         free(p->cmdargschild);
+        p->cmdargschild = NULL;
     }
-    free(p->avsplitchild);
+    // ft_putstr_fd(p.av[3], STDOUT_FILENO);
+    // ft_putstr_fd(": command not found\n", STDOUT_FILENO);
+    ft_free_table(p->avsplitchild);
+    p->avsplitchild = NULL;
     return (NULL);    
 }
 /*

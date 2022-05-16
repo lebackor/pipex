@@ -8,6 +8,7 @@ SRCS	=	srcs/ft_split.c\
 			srcs/ft_putchar.c\
 			srcs/ft_putnbr.c\
 			srcs/ft_putstr.c\
+			srcs/ft_putstr_fd.c\
 			pipex.c\
 			parsing.c\
 			cleaning.c\
@@ -16,7 +17,7 @@ OBJS = ${SRCS:.c=.o}
 
 CC	=	gcc
 
-CFLAGS = -Wall -Werror -Wextra -fsanitize=address -g3
+CFLAGS = -Wall -Werror -Wextra -g3
 
 NAME = pipex
 

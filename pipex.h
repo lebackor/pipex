@@ -58,4 +58,5 @@ char	*ft_strjoin(char const *s1, char const *s2);
 void ft_exit(t_data *p, int i);
 char    *parse_child(t_data *p);
 void ft_exit_fail(t_data *p);
+void	ft_putstr_fd(char *s, int fd);
 #endif
